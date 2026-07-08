@@ -1,6 +1,6 @@
 {
-  "name": "almudaya-blockchain",
-  "version": "0.2.0-pqc",
+  "name": "almudaya-quantum-blockchain",
+  "version": "1.0.0",
   "description": "Experimental Post-Quantum Ethereum-like modular blockchain prototype built with Node.js.",
   "main": "index.js",
   "type": "commonjs",
@@ -16,13 +16,14 @@
   },
   "keywords": [
     "blockchain",
+    "post-quantum",
+    "dilithium",
     "ethereum",
     "modular",
-    "prototype",
-    "nodejs"
+    "prototype"
   ],
   "license": "MIT",
   "bin": {
-    "almudaya": "rpc/server.js"
+    "almudaya-quantum": "rpc/server.js"
   }
 }
