@@ -1,0 +1,5 @@
+node_modules/
+wallet/db/
+worldstate/db/
+storage/db/
+.env

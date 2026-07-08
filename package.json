@@ -1,0 +1,24 @@
+{
+  "name": "modular-blockchain-prototype",
+  "version": "0.1.0",
+  "description": "Experimental Ethereum-like modular blockchain prototype built with Node.js.",
+  "main": "index.js",
+  "type": "commonjs",
+  "dependencies": {
+    "awilix": "^13.0.5",
+    "ethers": "^6.17.0",
+    "express": "^4.21.2"
+  },
+  "scripts": {
+    "check": "node -e \"require('./index.js')\"",
+    "rpc:start": "node rpc/server.js"
+  },
+  "keywords": [
+    "blockchain",
+    "ethereum",
+    "modular",
+    "prototype",
+    "nodejs"
+  ],
+  "license": "MIT"
+}

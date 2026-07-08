@@ -1,0 +1,1 @@
+{"kind":"blob","metadata":{"role":"contract-descriptor"},"namespace":"contracts","value":{"abi":[{"name":"transfer","type":"function"}],"codeHash":"2b63485ac28b2f9428d32eea4f2e6f17d2301d7b9de09f6bafca3733c54c6a11","metadata":{"compiler":"experimental-solc"},"name":"Token","storageHash":"007178193f81c59eed1d27f4d94acf53ea52b3be56afd4920eac137f9d2bd4a4","version":1}}

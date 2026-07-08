@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Blockchain Prototype Demo</title>
+    <link rel="stylesheet" href="/styles.css">
+  </head>
+  <body>
+    <main class="app-shell">
+      <section class="hero">
+        <p class="eyebrow">Modular Blockchain Prototype</p>
+        <h1>Browser demo for MetaMask, deploy, and contract calls</h1>
+        <p class="lede">
+          Demo ini memakai MetaMask untuk koneksi wallet di browser, lalu berbicara ke node lokal
+          melalui JSON-RPC internal project ini.
+        </p>
+        <div class="actions">
+          <button id="connect-wallet" type="button">Connect MetaMask</button>
+          <button id="add-network" type="button" class="secondary">Add Local Network</button>
+          <button id="refresh-status" type="button" class="ghost">Refresh Status</button>
+        </div>
+        <dl class="status-grid">
+          <div>
+            <dt>Wallet account</dt>
+            <dd id="wallet-account">Not connected</dd>
+          </div>
+          <div>
+            <dt>Wallet chain</dt>
+            <dd id="wallet-chain">Unknown</dd>
+          </div>
+          <div>
+            <dt>Node chain ID</dt>
+            <dd id="node-chain-id">Loading...</dd>
+          </div>
+          <div>
+            <dt>Latest block</dt>
+            <dd id="node-block-number">Loading...</dd>
+          </div>
+        </dl>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Deploy contract</h2>
+          <p>Compiler contract di project ini memakai syntax custom minimal, bukan Solidity penuh.</p>
+        </div>
+        <label for="contract-source">Contract source</label>
+        <textarea id="contract-source" spellcheck="false">contract Wallet {
+  state balance = 0;
+
+  function deposit(amount) {
+    balance = balance + amount;
+  }
+
+  function withdraw(amount) {
+    balance = balance - amount;
+  }
+}</textarea>
+        <div class="form-row">
+          <label for="contract-metadata">Metadata JSON</label>
+          <input id="contract-metadata" type="text" value='{"createdFrom":"browser-demo"}'>
+        </div>
+        <button id="deploy-contract" type="button">Deploy Contract</button>
+        <pre id="deploy-result" class="result-box">No deployment yet.</pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Call contract</h2>
+          <p>Gunakan <code>contractAddress</code> dan <code>contractRoot</code> dari hasil deploy. Demo ini juga bisa dry-run lewat <code>eth_call</code>.</p>
+        </div>
+        <div class="grid-two">
+          <label>
+            Contract address
+            <input id="call-contract-address" type="text" placeholder="0x...">
+          </label>
+          <label>
+            Contract root
+            <input id="call-contract-root" type="text" placeholder="hash root contract">
+          </label>
+        </div>
+        <div class="grid-three">
+          <label>
+            Function name
+            <input id="call-function-name" type="text" value="deposit">
+          </label>
+          <label>
+            Args JSON
+            <input id="call-args" type="text" value='{"amount":5}'>
+          </label>
+          <label>
+            Gas limit
+            <input id="call-gas-limit" type="number" min="1" value="1000">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="call-contract" type="button">Call Contract</button>
+          <button id="dry-run-contract" type="button" class="secondary">Dry Run eth_call</button>
+          <button id="estimate-gas" type="button" class="ghost">Estimate Gas</button>
+        </div>
+        <pre id="call-result" class="result-box">No contract call yet.</pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Deployment history and storage</h2>
+          <p>Riwayat deploy disimpan di browser lokal untuk memudahkan pengujian berulang.</p>
+        </div>
+        <div class="grid-two">
+          <label>
+            Saved deployments
+            <select id="saved-deployments"></select>
+          </label>
+          <label>
+            Storage key for <code>eth_getStorageAt</code>
+            <input id="storage-key" type="text" value="balance">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="load-selected-deployment" type="button" class="secondary">Load Selected</button>
+          <button id="inspect-storage" type="button">Inspect Storage</button>
+        </div>
+        <pre id="storage-result" class="result-box">No storage inspection yet.</pre>
+      </section>
+
+      <section class="panel">
+        <div class="panel-heading">
+          <h2>Transfer and mining explorer</h2>
+          <p>Bagian ini memakai <code>eth_sendTransaction</code> pada akun node-managed, lalu menambang pending transaction ke block baru.</p>
+        </div>
+        <div class="grid-three">
+          <label>
+            Managed from
+            <select id="transfer-from"></select>
+          </label>
+          <label>
+            To address
+            <input id="transfer-to" type="text" placeholder="0x...">
+          </label>
+          <label>
+            Amount
+            <input id="transfer-value" type="number" min="1" value="10">
+          </label>
+        </div>
+        <div class="actions">
+          <button id="send-transfer" type="button">Send Transfer</button>
+          <button id="mine-pending" type="button" class="secondary">Mine Pending</button>
+          <button id="refresh-explorer" type="button" class="ghost">Refresh Explorer</button>
+        </div>
+        <pre id="transfer-result" class="result-box">No transfer yet.</pre>
+        <pre id="explorer-result" class="result-box">Explorer not loaded yet.</pre>
+      </section>
+
+      <section class="panel panel-compact">
+        <div class="panel-heading">
+          <h2>Node info</h2>
+          <p>Subset method <code>eth_*</code> ini ditujukan untuk kompatibilitas tahap awal, belum EVM penuh.</p>
+        </div>
+        <button id="load-node-info" type="button" class="secondary">Load Node Info</button>
+        <pre id="node-info" class="result-box">Loading...</pre>
+      </section>
+    </main>
+
+    <script src="/app.js"></script>
+  </body>
+</html>

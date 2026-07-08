@@ -1,0 +1,1 @@
+{"kind":"tree","metadata":{"keyHint":"balances","role":"storage-tree"},"namespace":"contracts","value":{"entries":[{"hash":"c14ed7c05043a6e3dd89b3fc5170ddf71ff9a6540f56674b7e1fb2a4f366afab","kind":"blob","name":"alice"},{"hash":"c4284e86329691723b04411269a49d57c489df1b037b727696720bc71305506b","kind":"blob","name":"bob"}]}}

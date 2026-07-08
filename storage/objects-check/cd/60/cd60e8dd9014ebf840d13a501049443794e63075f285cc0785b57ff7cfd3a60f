@@ -1,0 +1,1 @@
+{"kind":"pq-object","metadata":{"algorithm":"pq-placeholder","commitmentHash":"a045806aa90b11a2607f535ea0da4f5df618cd1152a09c1a06b85378157fd233","role":"post-quantum-object"},"namespace":"pq","value":{"algorithm":"pq-placeholder","metadata":{"test":true},"payloadHash":"payload-hash","publicKey":null,"signatureData":null}}

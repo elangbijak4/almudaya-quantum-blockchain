@@ -1,0 +1,27 @@
+BISMILLAH
+.
+Diskusi Arsitektur:
+https://chatgpt.com/g/g-p-6a0080aeb9fc8191a603f991bc914527-blockchain-almudaya/c/69ff52de-e8d0-83ec-9a20-2ff4607224ca
+.
+Review seluruh architecture project.
+Cari:
+- circular dependency
+- nondeterministic behavior
+- serialization inconsistency
+- security issue
+- tight coupling
+- duplicate logic
+
+Lalu refactor seperlunya.
+.
+STATE:
+SEKARANG SUDAH PROMPT 12 + TAPI BELUM REVIEW [STATUS: PENDING]
+SELANJUTNYA UNTUK PROMPT REVIEW PROMPT 12 PENDING, MENUNGGU TGL 24 LAGI.
+.
+RENCANA PERTANYAAN:
+TANYAKAN APA YANG MUNGKIN KURANG DARI SELURUH ARSITEKTUR YANG DIBANGUN DALAM APLIKASI INI, BERI PERMISALAN:
+MISAL: APAKAH SINKRONISASI MULTI....
+BEBERAPA CATATAN YANG DIA TINGGALKAN INSHAA ALLAH SELESAIKAN.
+Catatan: dependency express sudah ditambahkan di package.json (line 1), tetapi saya belum menjalankan server HTTP sungguhan di turn ini. Jika Anda ingin, langkah berikutnya adalah saya tambahkan entrypoint rpc/server.js dan contoh request JSON-RPC siap pakai untuk Postman atau curl.
+.
+KEMUDIAN TANYAKAN BAGAIMANA STRATEGI PEMAKAIANNYA, APA SAJA KEMAMPUANNYA.
