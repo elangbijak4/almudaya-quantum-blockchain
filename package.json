@@ -1,6 +1,6 @@
 {
   "name": "almudaya-blockchain",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Experimental Ethereum-like modular blockchain prototype built with Node.js.",
   "main": "index.js",
   "type": "commonjs",
