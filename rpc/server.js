@@ -52,7 +52,7 @@ function createRpcServer({
     || path.join(process.cwd(), 'wallet', 'db', 'bridge-wallet.json'),
   worldStateFilePath = process.env.WORLDSTATE_FILE
     || path.join(process.cwd(), 'worldstate', 'db', 'worldstate.json'),
-  staticDirectory = path.join(process.cwd(), 'public')
+  staticDirectory = path.join(__dirname, '..', 'public')
 } = {}) {
   const container = awilix.createContainer({
     injectionMode: awilix.InjectionMode.PROXY
