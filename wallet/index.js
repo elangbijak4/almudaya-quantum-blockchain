@@ -6,6 +6,7 @@ const { WalletRepositoryInterface } = require('./interfaces/wallet-repository.in
 const { WalletAccount } = require('./models/wallet-account');
 const { AddressDeriver } = require('./services/address-deriver');
 const { Secp256k1SignatureProvider } = require('./services/secp256k1-signature-provider');
+const { DilithiumSignatureProvider } = require('./services/dilithium-signature-provider');
 const { WalletManager } = require('./services/wallet-manager');
 
 module.exports = {
@@ -15,5 +16,6 @@ module.exports = {
   WalletAccount,
   AddressDeriver,
   Secp256k1SignatureProvider,
+  DilithiumSignatureProvider,
   WalletManager
 };

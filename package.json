@@ -1,10 +1,11 @@
 {
   "name": "almudaya-blockchain",
-  "version": "0.1.1",
-  "description": "Experimental Ethereum-like modular blockchain prototype built with Node.js.",
+  "version": "0.2.0-pqc",
+  "description": "Experimental Post-Quantum Ethereum-like modular blockchain prototype built with Node.js.",
   "main": "index.js",
   "type": "commonjs",
   "dependencies": {
+    "@asanrom/dilithium": "^1.1.1",
     "awilix": "^13.0.5",
     "ethers": "^6.17.0",
     "express": "^4.21.2"

@@ -7,9 +7,9 @@ const { CryptoProvider } = require('../crypto');
 const { Blockchain } = require('../core');
 const { ContractCompiler, Tokenizer, Parser, BytecodeGenerator } = require('../contracts');
 const { BlockchainRpcService, ExpressJsonRpcTransport, RpcServer } = require('./index');
-const { ContentAddressedObjectStore } = require('../storage');
+const { ContentAddressedObjectStore, PostQuantumObjectStore } = require('../storage');
 const { VirtualMachine } = require('../vm');
-const { AddressDeriver, Secp256k1SignatureProvider, WalletManager } = require('../wallet');
+const { AddressDeriver, DilithiumSignatureProvider, WalletManager } = require('../wallet');
 const { JsonStateRepository, WorldStateManager } = require('../worldstate');
 const awilix = require('awilix');
 
@@ -17,19 +17,26 @@ const { EthereumRlpSignatureProvider } = require('../wallet/services/ethereum-rl
 const { ethers } = require('ethers');
 
 function generateDemoAccounts(count = 20) {
-  const wallet = ethers.Wallet.createRandom();
-  const mnemonic = wallet.mnemonic.phrase;
   const accounts = [];
+  const cryptoProvider = new CryptoProvider();
+  const signatureProvider = new DilithiumSignatureProvider();
   
-  const rootNode = ethers.HDNodeWallet.fromSeed(ethers.Mnemonic.fromPhrase(mnemonic).computeSeed());
+  // We can't generate Dilithium from a standard BIP39 seed easily in this library,
+  // so we'll just generate random Dilithium accounts and a dummy mnemonic.
+  const mnemonic = "post quantum blockchain test mnemonic phrase crystals dilithium algorithm security future prototype";
+
   for (let i = 0; i < count; i++) {
-    const derived = rootNode.derivePath(`m/44'/60'/0'/0/${i}`);
+    const keypair = signatureProvider.generateKeypair();
+    const metadata = { algorithm: signatureProvider.algorithm };
+    const digest = cryptoProvider.hash({ metadata, publicKey: keypair.publicKey });
+    const address = `0x${digest.slice(-40)}`;
+
     accounts.push({
-      address: derived.address.toLowerCase(),
-      privateKey: derived.privateKey,
-      publicKey: derived.publicKey,
-      algorithm: 'secp256k1',
-      addressMetadata: { algorithm: 'secp256k1' }
+      address: address.toLowerCase(),
+      privateKey: keypair.privateKey,
+      publicKey: keypair.publicKey,
+      algorithm: signatureProvider.algorithm,
+      addressMetadata: metadata
     });
   }
 
@@ -72,7 +79,6 @@ function createRpcServer({
     difficulty: awilix.asValue(2),
     miningReward: awilix.asValue(50),
     initialSupply: awilix.asValue(10000),
-    postQuantumObjectStore: awilix.asValue(null),
     maxSteps: awilix.asValue(10000),
     walletRepository: awilix.asValue(null),
     signatureProviders: awilix.asValue({
@@ -81,12 +87,13 @@ function createRpcServer({
     prefix: awilix.asValue('0x'),
     addressLength: awilix.asValue(40),
     basePath: awilix.asValue(path.join(process.cwd(), 'storage', 'db', 'objects')),
+    commitmentIndexPath: awilix.asValue(path.join(process.cwd(), 'storage', 'db', 'pq-index')),
     contractsPath: awilix.asValue(path.join(process.cwd(), 'contracts', 'src')),
-    clientVersion: awilix.asValue('Almudaya/v0.1.0'),
+    clientVersion: awilix.asValue('Almudaya/v0.2.0-pqc'),
 
     // Classes
     cryptoProvider: awilix.asClass(CryptoProvider).singleton(),
-    signatureProvider: awilix.asClass(Secp256k1SignatureProvider).singleton(),
+    signatureProvider: awilix.asClass(DilithiumSignatureProvider).singleton(),
     addressDeriver: awilix.asClass(AddressDeriver).singleton(),
     walletManager: awilix.asClass(WalletManager).singleton(),
     stateRepository: awilix.asClass(JsonStateRepository).singleton(),
@@ -97,6 +104,7 @@ function createRpcServer({
     bytecodeGenerator: awilix.asClass(BytecodeGenerator).singleton(),
     contractCompiler: awilix.asClass(ContractCompiler).singleton(),
     contentAddressedObjectStore: awilix.asClass(ContentAddressedObjectStore).singleton(),
+    postQuantumObjectStore: awilix.asClass(PostQuantumObjectStore).singleton(),
     vm: awilix.asClass(VirtualMachine).singleton(),
     rpcService: awilix.asClass(BlockchainRpcService).singleton(),
     transport: awilix.asClass(ExpressJsonRpcTransport).singleton(),

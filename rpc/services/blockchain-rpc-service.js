@@ -350,6 +350,7 @@ class BlockchainRpcService {
     const account = this.resolveManagedAccount(fromAddress);
     const transactionPayload = {
       amount: this.normalizeValueField(transactionRequest.value),
+      data: transactionRequest.data || null,
       fromAddress: account.address,
       nonce: this.blockchain.getExpectedPendingNonce(account.address),
       timestamp: this.blockchain.getLatestBlock().timestamp + this.blockchain.pendingTransactions.length + 1,

@@ -177,19 +177,23 @@ class WalletManager {
     }
 
     if (derivedAddress !== signedTransaction?.address) {
+      console.log('Address mismatch', derivedAddress, signedTransaction?.address);
       return false;
     }
 
     if (signedTransaction?.signature?.algorithm !== signedTransaction?.algorithm) {
+      console.log('Algorithm mismatch', signedTransaction?.signature?.algorithm, signedTransaction?.algorithm);
       return false;
     }
 
-    return this.verify(
+    const verified = this.verify(
       payload,
       signedTransaction?.signature,
       signedTransaction?.publicKey,
       signedTransaction?.algorithm
     );
+    if (!verified) console.log('Signature verification failed payload=', payload);
+    return verified;
   }
 
   deriveAddress(publicKey, metadata = {}) {
