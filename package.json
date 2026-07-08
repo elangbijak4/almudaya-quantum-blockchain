@@ -20,5 +20,8 @@
     "prototype",
     "nodejs"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "bin": {
+    "almudaya": "rpc/server.js"
+  }
 }
