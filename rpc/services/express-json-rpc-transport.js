@@ -45,6 +45,10 @@ class ExpressJsonRpcTransport {
         route: this.route
       });
     });
+
+    app.get('/dashboard-info', (_request, response) => {
+      response.json(this.dashboardInfo || { mnemonic: '', accounts: [] });
+    });
     app.post(this.route, async (request, response) => {
       const payload = request.body;
 

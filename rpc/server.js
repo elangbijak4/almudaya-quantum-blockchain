@@ -106,6 +106,7 @@ function createRpcServer({
   const resolvedServer = container.resolve('rpcServer');
   resolvedServer.demoMnemonic = mnemonic;
   resolvedServer.demoAccounts = accounts;
+  resolvedServer.transport.dashboardInfo = { mnemonic, accounts };
   return resolvedServer;
 }
 

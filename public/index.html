@@ -1,167 +1,136 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Blockchain Prototype Demo</title>
-    <link rel="stylesheet" href="/styles.css">
-  </head>
-  <body>
-    <main class="app-shell">
-      <section class="hero">
-        <p class="eyebrow">Modular Blockchain Prototype</p>
-        <h1>Browser demo for MetaMask, deploy, and contract calls</h1>
-        <p class="lede">
-          Demo ini memakai MetaMask untuk koneksi wallet di browser, lalu berbicara ke node lokal
-          melalui JSON-RPC internal project ini.
-        </p>
-        <div class="actions">
-          <button id="connect-wallet" type="button">Connect MetaMask</button>
-          <button id="add-network" type="button" class="secondary">Add Local Network</button>
-          <button id="refresh-status" type="button" class="ghost">Refresh Status</button>
-        </div>
-        <dl class="status-grid">
-          <div>
-            <dt>Wallet account</dt>
-            <dd id="wallet-account">Not connected</dd>
-          </div>
-          <div>
-            <dt>Wallet chain</dt>
-            <dd id="wallet-chain">Unknown</dd>
-          </div>
-          <div>
-            <dt>Node chain ID</dt>
-            <dd id="node-chain-id">Loading...</dd>
-          </div>
-          <div>
-            <dt>Latest block</dt>
-            <dd id="node-block-number">Loading...</dd>
-          </div>
-        </dl>
-      </section>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Almudaya Dashboard</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="dashboard-container">
+        <!-- Header Top: Network Info -->
+        <header class="top-bar">
+            <div class="logo">
+                <span class="logo-text">Almudaya</span>
+                <span class="version">v0.1.0</span>
+            </div>
+            <div class="network-info">
+                <div class="info-block">
+                    <span class="label">CURRENT BLOCK</span>
+                    <span class="value" id="current-block-height">0</span>
+                </div>
+                <div class="info-block">
+                    <span class="label">RPC SERVER</span>
+                    <span class="value">HTTP://127.0.0.1:8545/RPC</span>
+                </div>
+                <div class="info-block">
+                    <span class="label">CHAIN ID</span>
+                    <span class="value">1337</span>
+                </div>
+                <div class="info-block">
+                    <span class="label">NETWORK ID</span>
+                    <span class="value">0x539</span>
+                </div>
+            </div>
+        </header>
 
-      <section class="panel">
-        <div class="panel-heading">
-          <h2>Deploy contract</h2>
-          <p>Compiler contract di project ini memakai syntax custom minimal, bukan Solidity penuh.</p>
-        </div>
-        <label for="contract-source">Contract source</label>
-        <textarea id="contract-source" spellcheck="false">contract Wallet {
-  state balance = 0;
+        <!-- Navigation Tabs -->
+        <nav class="tabs">
+            <button class="tab-btn active" data-target="accounts-tab">
+                <span class="icon">👤</span> ACCOUNTS
+            </button>
+            <button class="tab-btn" data-target="blocks-tab">
+                <span class="icon">📦</span> BLOCKS
+            </button>
+            <button class="tab-btn" data-target="transactions-tab">
+                <span class="icon">🔄</span> TRANSACTIONS
+            </button>
+            <button class="tab-btn" data-target="logs-tab">
+                <span class="icon">📝</span> LOGS
+            </button>
+        </nav>
 
-  function deposit(amount) {
-    balance = balance + amount;
-  }
+        <!-- Main Content Area -->
+        <main class="content-area">
+            
+            <!-- ACCOUNTS TAB -->
+            <section id="accounts-tab" class="tab-content active">
+                <div class="mnemonic-box">
+                    <div class="mnemonic-header">
+                        <span class="label">MNEMONIC (WORDS PHRASE)</span>
+                        <span class="label">HD PATH: m/44'/60'/0'/0/</span>
+                    </div>
+                    <div class="mnemonic-words" id="mnemonic-display">
+                        <!-- Mnemonic will be populated here -->
+                    </div>
+                </div>
 
-  function withdraw(amount) {
-    balance = balance - amount;
-  }
-}</textarea>
-        <div class="form-row">
-          <label for="contract-metadata">Metadata JSON</label>
-          <input id="contract-metadata" type="text" value='{"createdFrom":"browser-demo"}'>
-        </div>
-        <button id="deploy-contract" type="button">Deploy Contract</button>
-        <pre id="deploy-result" class="result-box">No deployment yet.</pre>
-      </section>
+                <div class="accounts-list">
+                    <div class="list-header">
+                        <span>ADDRESS</span>
+                        <span>BALANCE</span>
+                        <span>TX COUNT</span>
+                        <span>INDEX</span>
+                    </div>
+                    <div id="accounts-container">
+                        <!-- Accounts will be dynamically injected here -->
+                    </div>
+                </div>
+            </section>
 
-      <section class="panel">
-        <div class="panel-heading">
-          <h2>Call contract</h2>
-          <p>Gunakan <code>contractAddress</code> dan <code>contractRoot</code> dari hasil deploy. Demo ini juga bisa dry-run lewat <code>eth_call</code>.</p>
-        </div>
-        <div class="grid-two">
-          <label>
-            Contract address
-            <input id="call-contract-address" type="text" placeholder="0x...">
-          </label>
-          <label>
-            Contract root
-            <input id="call-contract-root" type="text" placeholder="hash root contract">
-          </label>
-        </div>
-        <div class="grid-three">
-          <label>
-            Function name
-            <input id="call-function-name" type="text" value="deposit">
-          </label>
-          <label>
-            Args JSON
-            <input id="call-args" type="text" value='{"amount":5}'>
-          </label>
-          <label>
-            Gas limit
-            <input id="call-gas-limit" type="number" min="1" value="1000">
-          </label>
-        </div>
-        <div class="actions">
-          <button id="call-contract" type="button">Call Contract</button>
-          <button id="dry-run-contract" type="button" class="secondary">Dry Run eth_call</button>
-          <button id="estimate-gas" type="button" class="ghost">Estimate Gas</button>
-        </div>
-        <pre id="call-result" class="result-box">No contract call yet.</pre>
-      </section>
+            <!-- BLOCKS TAB -->
+            <section id="blocks-tab" class="tab-content">
+                <div class="list-header">
+                    <span>BLOCK</span>
+                    <span>MINED ON</span>
+                    <span>GAS USED</span>
+                    <span>TX COUNT</span>
+                </div>
+                <div id="blocks-container" class="empty-state">
+                    Belum ada blok yang ditambang.
+                </div>
+            </section>
 
-      <section class="panel">
-        <div class="panel-heading">
-          <h2>Deployment history and storage</h2>
-          <p>Riwayat deploy disimpan di browser lokal untuk memudahkan pengujian berulang.</p>
-        </div>
-        <div class="grid-two">
-          <label>
-            Saved deployments
-            <select id="saved-deployments"></select>
-          </label>
-          <label>
-            Storage key for <code>eth_getStorageAt</code>
-            <input id="storage-key" type="text" value="balance">
-          </label>
-        </div>
-        <div class="actions">
-          <button id="load-selected-deployment" type="button" class="secondary">Load Selected</button>
-          <button id="inspect-storage" type="button">Inspect Storage</button>
-        </div>
-        <pre id="storage-result" class="result-box">No storage inspection yet.</pre>
-      </section>
+            <!-- TRANSACTIONS TAB -->
+            <section id="transactions-tab" class="tab-content">
+                <div class="list-header">
+                    <span>TX HASH</span>
+                    <span>FROM ADDRESS</span>
+                    <span>TO ADDRESS</span>
+                    <span>VALUE</span>
+                </div>
+                <div id="transactions-container" class="empty-state">
+                    Belum ada transaksi.
+                </div>
+            </section>
 
-      <section class="panel">
-        <div class="panel-heading">
-          <h2>Transfer and mining explorer</h2>
-          <p>Bagian ini memakai <code>eth_sendTransaction</code> pada akun node-managed, lalu menambang pending transaction ke block baru.</p>
-        </div>
-        <div class="grid-three">
-          <label>
-            Managed from
-            <select id="transfer-from"></select>
-          </label>
-          <label>
-            To address
-            <input id="transfer-to" type="text" placeholder="0x...">
-          </label>
-          <label>
-            Amount
-            <input id="transfer-value" type="number" min="1" value="10">
-          </label>
-        </div>
-        <div class="actions">
-          <button id="send-transfer" type="button">Send Transfer</button>
-          <button id="mine-pending" type="button" class="secondary">Mine Pending</button>
-          <button id="refresh-explorer" type="button" class="ghost">Refresh Explorer</button>
-        </div>
-        <pre id="transfer-result" class="result-box">No transfer yet.</pre>
-        <pre id="explorer-result" class="result-box">Explorer not loaded yet.</pre>
-      </section>
+            <!-- LOGS TAB -->
+            <section id="logs-tab" class="tab-content">
+                <div class="logs-container" id="logs-terminal">
+                    <!-- Logs will be populated here -->
+                </div>
+            </section>
 
-      <section class="panel panel-compact">
-        <div class="panel-heading">
-          <h2>Node info</h2>
-          <p>Subset method <code>eth_*</code> ini ditujukan untuk kompatibilitas tahap awal, belum EVM penuh.</p>
-        </div>
-        <button id="load-node-info" type="button" class="secondary">Load Node Info</button>
-        <pre id="node-info" class="result-box">Loading...</pre>
-      </section>
-    </main>
+        </main>
+    </div>
 
-    <script src="/app.js"></script>
-  </body>
+    <!-- Modal Private Key -->
+    <div id="pk-modal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn">&times;</span>
+            <h2>Account Information</h2>
+            <div class="account-info-box">
+                <span class="label">ACCOUNT ADDRESS</span>
+                <div class="value-box" id="modal-address"></div>
+            </div>
+            <div class="account-info-box">
+                <span class="label">PRIVATE KEY</span>
+                <div class="value-box private-key-box" id="modal-pk"></div>
+            </div>
+            <p class="warning-text">⚠️ JANGAN PERNAH MENGGUNAKAN PRIVATE KEY INI DI MAINNET (UANG ASLI).</p>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
 </html>
