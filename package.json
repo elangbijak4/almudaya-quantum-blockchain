@@ -1,6 +1,6 @@
 {
   "name": "almudaya-quantum-blockchain",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Experimental Post-Quantum Ethereum-like modular blockchain prototype built with Node.js.",
   "main": "index.js",
   "type": "commonjs",
