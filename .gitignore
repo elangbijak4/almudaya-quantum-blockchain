@@ -3,3 +3,5 @@ wallet/db/
 worldstate/db/
 storage/db/
 .env
+
+storage/contracts/
