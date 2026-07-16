@@ -1,0 +1,12 @@
+contract QuantumIdentityRegistry {
+  state registryCount = 0;
+  state isOperational = 1;
+
+  function registerIdentity() {
+    registryCount = registryCount + 1;
+  }
+
+  function getRegistryCount() {
+    registryCount = registryCount + 0;
+  }
+}
