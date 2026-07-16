@@ -1,6 +1,7 @@
 # Software Metrics & Sizing Report
 **Nama Proyek:** Almudaya Quantum Blockchain
 **Versi:** 1.0.1
+**Tanggal Terbit:** 16 Juli 2026
 **Tujuan Dokumen:** Melengkapi persyaratan administratif dan rekayasa perangkat lunak untuk skema riset dan pengukuran kelayakan operasional (TKT).
 
 ---

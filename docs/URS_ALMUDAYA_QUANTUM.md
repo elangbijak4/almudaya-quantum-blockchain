@@ -1,6 +1,7 @@
 # User Requirement Specification (URS)
 **Nama Proyek:** Almudaya Quantum Blockchain
 **Versi:** 1.0.1
+**Tanggal Terbit:** 16 Juli 2026
 **Fase Riset:** Purwarupa (Proof of Concept / Beta)
 **Tingkat Kesiapterapan Teknologi (TKT) Target:** TKT 4 - TKT 6
 

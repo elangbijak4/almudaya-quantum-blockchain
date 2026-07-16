@@ -1,6 +1,7 @@
 # System Design Specification (SDS)
 **Nama Proyek:** Almudaya Quantum Blockchain
 **Versi:** 1.0.1
+**Tanggal Terbit:** 16 Juli 2026
 **Dokumen Induk:** User Requirement Specification (URS)
 
 ---

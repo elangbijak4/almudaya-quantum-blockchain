@@ -1,6 +1,7 @@
 # Software Test Report (STR)
 **Nama Proyek:** Almudaya Quantum Blockchain
 **Versi:** 1.0.1
+**Tanggal Terbit:** 16 Juli 2026
 **Tujuan Dokumen:** Pelaporan hasil uji fungsional (Functional Testing) untuk pembuktian validasi teknologi di level Purwarupa (TKT 4 - TKT 6).
 
 ---
