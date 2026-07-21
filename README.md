@@ -1,41 +1,104 @@
-# Almudaya Quantum Blockchain (v0.2.0-pqc)
+# Almudaya Quantum Blockchain (AQB)
 
-Almudaya Quantum Blockchain adalah sebuah purwarupa (*Proof-of-Concept*/PoC) jaringan blockchain modular bergaya Ethereum yang dirancang dari dasar untuk menghadapi masa depan pasca-kuantum (*Post-Quantum Cryptography*).
+> Building the Foundation of Post-Quantum Blockchain for Research, Education, and Industrial Innovation.
 
-Blockchain ini melepaskan ketergantungan pada standar kriptografi rentan kuantum seperti secp256k1 (ECDSA) dan beralih menggunakan standar **NIST FIPS 204: CRYSTALS-Dilithium** (Lattice-Based Cryptography) untuk manajemen kunci dan tanda tangan transaksi. 
+Almudaya Quantum Blockchain (AQB) is a modular Ethereum-inspired blockchain prototype designed from the ground up for the post-quantum era.
 
-## Fitur Utama 🌟
+Instead of relying on classical public-key cryptography such as secp256k1 (ECDSA), AQB adopts NIST-standardized Post-Quantum Cryptography (PQC) as the foundation of its cryptographic architecture. The current prototype integrates lattice-based digital signatures while preserving a familiar Ethereum-like developer experience.
 
-1. **Lattice-Based Signature (Dilithium2):** Keamanan transaksi dilindungi oleh algoritma Post-Quantum yang tahan terhadap serangan logaritma diskret oleh komputer kuantum (algoritma Shor & Grover).
-2. **Arsitektur Modular:** Pemisahan lapisan (*Separation of Concerns*) dengan sangat ketat (RPC, WorldState, VM, Storage) menggunakan *Dependency Injection*.
-3. **Kompatibilitas Antarmuka Ethereum:** Meski kunci kuantum berukuran besar, *RPC Server* dan *address hashing* (`0x...`) secara sengaja dibuat tetap familier agar ekosistem interaksinya menyerupai lingkungan simulasi Web3 standar (seperti Ganache/Hardhat Local Node).
-4. **Post-Quantum Object Store:** Penyimpanan bukti on-chain untuk memastikan ketahanan modifikasi pada tingkat protokol.
+---
 
-## Struktur Modul
+# Features
 
-- `core`: orkestrasi chain lifecycle dan validation layer (termasuk validasi *signature* PQC).
-- `crypto`: implementasi dasar *hashing* deterministik.
-- `wallet`: facade manajemen dompet dan antarmuka *SignatureProvider* (menyuntikkan `DilithiumSignatureProvider`).
-- `worldstate`: abstraksi *state* dan penyimpanan.
-- `vm`: lingkungan eksekusi Smart Contract simulasi.
-- `contracts`: kompiler dan pengeksekusi bahasa skrip internal blockchain.
-- `rpc`: *JSON-RPC Web3 Endpoint* yang memfasilitasi interaksi pengguna (Node-Managed PQC Accounts).
+- 🔐 Post-Quantum Digital Signatures (NIST FIPS 204 / ML-DSA-Dilithium)
+- 🧩 Modular Blockchain Architecture
+- 🌐 Ethereum-style JSON-RPC Interface
+- ⚡ Developer-Friendly Local Blockchain Environment
+- 📦 Post-Quantum Object Store
+- 🏛 Research & Educational Platform
 
-## Memulai & Menjalankan Node
+---
 
-### Instalasi Dependensi
-Pastikan NodeJS 24+ terpasang, lalu jalankan:
+# Architecture
+
+The project is organized into independent modules:
+
+| Module | Description |
+|---------|-------------|
+| core | Blockchain lifecycle, validation, consensus orchestration |
+| crypto | Hashing and cryptographic primitives |
+| wallet | PQC wallet management and signature providers |
+| worldstate | State abstraction and storage |
+| vm | Smart contract execution environment |
+| contracts | Internal scripting language compiler |
+| rpc | Ethereum-compatible JSON-RPC server |
+
+---
+
+# Getting Started
+
+## Requirements
+
+- Node.js 24+
+- npm
+
+Install dependencies
+
 ```bash
 npm install
 ```
 
-### Menjalankan RPC Server & Node
+Run the blockchain node
+
 ```bash
 npm run rpc:start
 ```
-Node akan mulai berjalan di `http://127.0.0.1:8545` dan mencetak **20 Akun Dompet Dilithium** yang siap digunakan untuk bertransaksi! Tersedia juga Web Dashboard GUI secara langsung saat Anda mengakses alamat tersebut di browser.
 
-## Dokumentasi Pendukung
-Kami telah menyiapkan dokumen komprehensif bagi Anda yang ingin mengkaji model PoC ini dari segi akademis dan ilmiah:
-1. [Tinjauan Implementasi Post-Quantum (Scientific PoC)](docs/PQC_SCIENTIFIC_DOCUMENTATION.md)
-2. [Panduan Penggunaan Akademik (Untuk Dosen & Mahasiswa)](docs/USER_GUIDE_ACADEMIC.md)
+The node starts at
+
+```
+http://127.0.0.1:8545
+```
+
+Upon startup, AQB automatically generates 20 Post-Quantum wallets ready for experimentation. A built-in Web Dashboard is also available through the browser.
+
+---
+
+# Documentation
+
+Detailed documentation is available in:
+
+- Scientific Documentation
+- Academic User Guide
+
+---
+
+# AI-Assisted Development
+
+This project was developed using an AI-assisted software engineering workflow.
+
+The software architecture was iteratively designed and refined through conversations with ChatGPT, helping define the modular blockchain structure, subsystem responsibilities, and development roadmap.
+
+Implementation was primarily accelerated using Codex for code generation, refactoring, and iterative component development. As development progressed, additional AI-assisted coding tools were used to continue implementation after Codex usage limits were reached.
+
+All architectural decisions, integration, testing, debugging, and final validation were performed by the project author.
+
+---
+
+# Roadmap
+
+- ✅ Modular blockchain node
+- ✅ Ethereum-style JSON-RPC
+- ✅ Post-Quantum wallet support
+- ✅ PQC transaction signatures
+- 🔄 Smart Contract enhancements
+- 🔄 ML-KEM integration
+- 🔄 Cross-node networking
+- 🔄 Performance benchmarking
+- 🔄 Developer SDK
+
+---
+
+# License
+
+This project is intended for research and educational purposes.
