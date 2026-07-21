@@ -75,11 +75,11 @@ Detailed documentation is available in:
 
 # AI-Assisted Development
 
-This project was developed using an AI-assisted software engineering workflow.
+This project was developed through an AI-assisted software engineering workflow.
 
-The software architecture was iteratively designed and refined through conversations with ChatGPT, helping define the modular blockchain structure, subsystem responsibilities, and development roadmap.
+The overall architecture evolved through iterative design discussions with ChatGPT, helping define the modular blockchain architecture, subsystem boundaries, development roadmap, and technical specifications.
 
-Implementation was primarily accelerated using Codex for code generation, refactoring, and iterative component development. As development progressed, additional AI-assisted coding tools were used to continue implementation after Codex usage limits were reached.
+Implementation was primarily accelerated using Codex for code generation, refactoring, and component development. After Codex usage limits were reached, additional AI-assisted coding tools were used to continue implementation.
 
 All architectural decisions, integration, testing, debugging, and final validation were performed by the project author.
 
